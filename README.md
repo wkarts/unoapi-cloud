@@ -2,7 +2,7 @@
 
 <!--[![Whatsapp Group](https://img.shields.io/badge/Group-WhatsApp-%2322BC18)](https://chat.whatsapp.com/CRBaGd850uB1QigKRcguJU)-->
 [![License](https://img.shields.io/badge/license-GPL--3.0-orange)](./LICENSE)
-[![Support](https://img.shields.io/badge/Donation-picpay-green)](https://app.picpay.com/user/wallace.kleiton)
+<!--[![Support](https://img.shields.io/badge/Donation-picpay-green)](https://app.picpay.com/user/wallace.kleiton)-->
 <!--[![Support](https://img.shields.io/badge/Buy%20me-coffe-orange)](https://www.buymeacoffee.com/clairton)-->
 
 </div>
@@ -547,6 +547,7 @@ Released under the GPLv3 License.
 
 Mail to comercial@unoapi.cloud
 -->
+<!--
 ## Donate to the project.
 
 #### Pix: 2a6d51ce-fa6f-498c-9cc4-befc2dc99778
@@ -562,7 +563,7 @@ Mail to comercial@unoapi.cloud
 </div>
 
 </br>
-<!--
+
 ### Buy Me A Coffee
 
 ##<div align="center">

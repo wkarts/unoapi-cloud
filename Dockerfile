@@ -17,12 +17,12 @@ RUN yarn build
 FROM node:21-alpine
 
 LABEL \
-  maintainer="Clairton Rodrigo Heinzen <clairton.rodrigo@gmail.com>" \
+  maintainer="Wallace Kleiton <wkarts@gmail.com>" \
   org.opencontainers.image.title="Unoapi Cloud" \
   org.opencontainers.image.description="Unoapi Cloud" \
-  org.opencontainers.image.authors="Clairton Rodrigo Heinzen <clairton.rodrigo@gmail.com>" \
-  org.opencontainers.image.url="https://github.com/clairton/unoapi-cloud" \
-  org.opencontainers.image.vendor="https://clairton.eti.br" \
+  org.opencontainers.image.authors="Wallace Kleiton <wkarts@gmail.com>" \
+  org.opencontainers.image.url="https://github.com/wkarts/unoapi-cloud" \
+  org.opencontainers.image.vendor="https://wwsoftwares.com.br" \
   org.opencontainers.image.licenses="GPLv3"
 
 ENV NODE_ENV=production

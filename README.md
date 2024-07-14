@@ -1,9 +1,9 @@
 <div align="center">
 
-[![Whatsapp Group](https://img.shields.io/badge/Group-WhatsApp-%2322BC18)](https://chat.whatsapp.com/CRBaGd850uB1QigKRcguJU)
+<!--[![Whatsapp Group](https://img.shields.io/badge/Group-WhatsApp-%2322BC18)](https://chat.whatsapp.com/CRBaGd850uB1QigKRcguJU)-->
 [![License](https://img.shields.io/badge/license-GPL--3.0-orange)](./LICENSE)
 [![Support](https://img.shields.io/badge/Donation-picpay-green)](https://app.picpay.com/user/wallace.kleiton)
-##[![Support](https://img.shields.io/badge/Buy%20me-coffe-orange)](https://www.buymeacoffee.com/clairton)
+<!--[![Support](https://img.shields.io/badge/Buy%20me-coffe-orange)](https://www.buymeacoffee.com/clairton)-->
 
 </div>
 <h1 align="center">Unoapi Cloud</h1>
@@ -538,15 +538,15 @@ using this software. WhatsApp does not allow bots using unofficial methods on
 their platform, so this shouldn't be considered totally safe.
 
 Released under the GPLv3 License.
-
+<!--
 ## WhatsApp Group
 
 ##https://chat.whatsapp.com/FZd0JyPVMLq94FHf59I8HU
 
 ## Need More
 
-##Mail to comercial@unoapi.cloud
-
+Mail to comercial@unoapi.cloud
+-->
 ## Donate to the project.
 
 #### Pix: 2a6d51ce-fa6f-498c-9cc4-befc2dc99778
@@ -562,7 +562,7 @@ Released under the GPLv3 License.
 </div>
 
 </br>
-
+<!--
 ### Buy Me A Coffee
 
 ##<div align="center">
@@ -572,3 +572,4 @@ Released under the GPLv3 License.
 ##</div>
 
 </br>
+-->

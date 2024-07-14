@@ -41,7 +41,7 @@ describe('service transformer', () => {
     expect(phoneNumberToJid('+557588449231')).toEqual('5575988449231@s.whatsapp.net')
   })
 
-    test('phoneNumberToJid with 13 length', async () => {
+  test('phoneNumberToJid with 13 length', async () => {
     expect(phoneNumberToJid('+5575800000000')).toEqual('5575800000000@s.whatsapp.net')
   })
 

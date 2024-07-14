@@ -1,14 +1,14 @@
 {
   "name": "unoapi-cloud",
-  "version": "1.17.7",
+  "version": "1.17.8",
   "description": "Unoapi Cloud",
   "exports": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "./dist"
   ],
-  "repository": "github.com/clairton/unoapi-cloud",
-  "author": "Clairton Rodrigo Heinzen<clairton.rodrigo@gmail.com>",
+  "repository": "github.com/wkarts/unoapi-cloud",
+  "author": "Wallace Kleiton<wkarts@gmail.com>",
   "license": "GPL-3.0",
   "private": false,
   "scripts": {

@@ -1,5 +1,5 @@
 {
-  "exclude": ["./coverage", "./dist", "jest.config.js"],
+  "exclude": ["./coverage", "./dist", "__tests__", "jest.config.js"],
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
@@ -15,16 +15,12 @@
     "esModuleInterop": true,
     "declaration": true,
     "resolveJsonModule": true,
-    "lib": ["es2020", "esnext.array", "DOM", "ES2021.String"],
-    "baseUrl": ".",
-    "paths": {
-      "*": ["node_modules/*", "src/types/*"]
-    }
+    "lib": ["es2020", "esnext.array", "DOM", "ES2021.String"]
   },
-  "include": ["src/**/*.ts", "__tests__/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "ts-node": {
     "compilerOptions": {
-      "esModuleInterop": true
+      "esModuleInterop": true,
     }
   }
 }

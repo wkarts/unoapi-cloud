@@ -19,6 +19,9 @@ RUN yarn
 # Verificar o conteúdo do arquivo após a modificação
 # RUN echo "Depois da modificação no estágio builder:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep -A 10 "profilePictureUrl"
 
+# Instale a versão específica do pacote Baileys
+RUN yarn add @whiskeysockets/baileys@zennn08/Baileys#profile-picture-url
+
 # Copiar código-fonte e arquivo de configuração do TypeScript
 ADD ./src ./src
 ADD ./tsconfig.json ./tsconfig.json

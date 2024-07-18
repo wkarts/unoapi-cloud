@@ -8,7 +8,7 @@
     "./dist"
   ],
   "repository": "github.com/wkarts/unoapi-cloud",
-  "author": "Wallace Kleiton <wkarts@gmail.com>",
+  "author": "Wallace Kleiton<wkarts@gmail.com>",
   "license": "GPL-3.0",
   "private": false,
   "scripts": {
@@ -45,7 +45,6 @@
     "@types/ws": "^8.5.10",
     "@typescript-eslint/eslint-plugin": "^7.13.0",
     "@typescript-eslint/parser": "^7.13.0",
-    "@whiskeysockets/baileys": "^6.7.5",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -66,7 +65,7 @@
     "@aws-sdk/s3-request-presigner": "^3.598.0",
     "@google-cloud/text-to-speech": "^5.2.0",
     "@redis/client": "^1.5.14",
-    "@whiskeysockets/baileys": "zennn08/Baileys#profile-picture-url",
+    "@whiskeysockets/baileys": "^6.7.5",
     "amqplib": "^0.10.4",
     "awesome-phonenumber": "^6.8.0",
     "dotenv": "^16.4.5",

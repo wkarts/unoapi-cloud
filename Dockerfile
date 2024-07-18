@@ -10,9 +10,6 @@ ADD ./package.json ./package.json
 ADD ./yarn.lock ./yarn.lock
 RUN yarn
 
-# Verificar o conteúdo do arquivo antes da modificação
-RUN echo "Antes da modificação:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep "to: jid,"
-
 # Adicionar a modificação do arquivo chats.js após a instalação das dependências
 RUN sed -i 's/\(\s*to: jid,\)/\1\n                target: jid,\n                to: S_WHATSAPP_NET,/' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
 
@@ -22,6 +19,9 @@ RUN echo "Depois da modificação:" && cat node_modules/@whiskeysockets/baileys/
 ADD ./src ./src
 ADD ./tsconfig.json ./tsconfig.json
 RUN yarn build
+
+# Verificar o conteúdo do arquivo no container builder após a construção
+RUN echo "Verificação final do arquivo no builder:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep "target: jid,"
 
 FROM node:21-alpine
 
@@ -47,5 +47,8 @@ COPY --from=builder /app/yarn.lock ./yarn.lock
 RUN apk --update --no-cache add git ffmpeg
 RUN yarn
 RUN apk del git
+
+# Verificar o conteúdo do arquivo no container final
+RUN echo "Verificação final do arquivo no container final:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep "target: jid,"
 
 ENTRYPOINT yarn start

@@ -10,8 +10,14 @@ ADD ./package.json ./package.json
 ADD ./yarn.lock ./yarn.lock
 RUN yarn
 
-# Adicionar a modificação do arquivo chats.d.ts após a instalação das dependências
+# Verificar o conteúdo do arquivo antes da modificação
+RUN echo "Antes da modificação:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep "to: jid,"
+
+# Adicionar a modificação do arquivo chats.js após a instalação das dependências
 RUN sed -i 's/\(\s*to: jid,\)/\1\n                target: jid,\n                to: S_WHATSAPP_NET,/' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
+
+# Verificar o conteúdo do arquivo após a modificação
+RUN echo "Depois da modificação:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep "target: jid,"
 
 ADD ./src ./src
 ADD ./tsconfig.json ./tsconfig.json

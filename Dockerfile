@@ -11,7 +11,7 @@ ADD ./yarn.lock ./yarn.lock
 RUN yarn
 
 # Adicionar a modificação do arquivo chats.js após a instalação das dependências
-RUN sed -i 's/\(\s*to: jid,\)/\1\n                target: jid,\n                to: S_WHATSAPP_NET,/' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
+RUN sed -i '/to: jid,/d; s/\(\s*type: '\''get'\'',\)/target: jid,\n                to: S_WHATSAPP_NET,\n                \1/' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
 
 # Verificar o conteúdo do arquivo após a modificação
 RUN echo "Depois da modificação no estágio builder:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep "target: jid,"
@@ -49,7 +49,7 @@ RUN yarn
 RUN apk del git
 
 # Aplicar a modificação no container final
-RUN sed -i 's/\(\s*to: jid,\)/\1\n                target: jid,\n                to: S_WHATSAPP_NET,/' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
+RUN sed -i '/to: jid,/d; s/\(\s*type: '\''get'\'',\)/target: jid,\n                to: S_WHATSAPP_NET,\n                \1/' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
 
 # Verificar o conteúdo do arquivo no container final
 RUN echo "Verificação final do arquivo no container final:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep "target: jid,"

@@ -14,10 +14,10 @@ ADD ./yarn.lock ./yarn.lock
 RUN yarn
 
 # Adicionar a modificação do arquivo chats.js após a instalação das dependências
-RUN sed -i '/const profilePictureUrl = async/,/return.*url;/ { s/to: jid,/target: jid,\n                to: S_WHATSAPP_NET,/; }' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
+# RUN sed -i '/const profilePictureUrl = async/,/return.*url;/ { s/to: jid,/target: jid,\n                to: S_WHATSAPP_NET,/; }' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
 
 # Verificar o conteúdo do arquivo após a modificação
-RUN echo "Depois da modificação no estágio builder:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep -A 10 "profilePictureUrl"
+# RUN echo "Depois da modificação no estágio builder:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep -A 10 "profilePictureUrl"
 
 # Copiar código-fonte e arquivo de configuração do TypeScript
 ADD ./src ./src
@@ -27,7 +27,7 @@ ADD ./tsconfig.json ./tsconfig.json
 RUN yarn build
 
 # Verificar o conteúdo do arquivo no container builder após a construção
-RUN echo "Verificação final do arquivo no builder:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep -A 10 "profilePictureUrl"
+# RUN echo "Verificação final do arquivo no builder:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep -A 10 "profilePictureUrl"
 
 FROM node:21-alpine
 
@@ -57,9 +57,9 @@ RUN yarn --production
 RUN apk del git
 
 # Aplicar a modificação no container final
-RUN sed -i '/const profilePictureUrl = async/,/return.*url;/ { s/to: jid,/target: jid,\n                to: S_WHATSAPP_NET,/; }' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
+# RUN sed -i '/const profilePictureUrl = async/,/return.*url;/ { s/to: jid,/target: jid,\n                to: S_WHATSAPP_NET,/; }' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
 
 # Verificar o conteúdo do arquivo no container final
-RUN echo "Verificação final do arquivo no container final:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep -A 10 "profilePictureUrl"
+# RUN echo "Verificação final do arquivo no container final:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep -A 10 "profilePictureUrl"
 
 ENTRYPOINT ["yarn", "start"]

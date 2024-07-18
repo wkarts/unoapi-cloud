@@ -58,6 +58,9 @@ jobs:
       - name: Add specific Baileys version
         run: yarn add @whiskeysockets/baileys@zennn08/Baileys#profile-picture-url
 
+      - name: Install dependencies
+        run: yarn install
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:

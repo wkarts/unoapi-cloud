@@ -148,7 +148,7 @@ const dataStoreFile = async (phone: string, config: Config): Promise<DataStore> 
   dataStore.loadImageUrl = async (jid: string, sock: WASocket) => {
     let url = await dataStore.getImageUrl(jid)
     if (!url) {
-      url = await sock.profilePictureUrl(jid, 'preview') // Usar a função profilePictureUrl do socket
+      url = await sock.profilePictureUrl(jid) // Usar a função profilePictureUrl do socket "url = await sock.profilePictureUrl(jid, 'preview')"
       if (url) {
         await dataStore.setImageUrl(jid, url)
       }

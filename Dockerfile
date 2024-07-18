@@ -14,7 +14,7 @@ RUN yarn
 RUN sed -i 's/\(\s*to: jid,\)/\1\n                target: jid,\n                to: S_WHATSAPP_NET,/' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
 
 # Verificar o conteúdo do arquivo após a modificação
-RUN echo "Depois da modificação:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep "target: jid,"
+RUN echo "Depois da modificação no estágio builder:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep "target: jid,"
 
 ADD ./src ./src
 ADD ./tsconfig.json ./tsconfig.json
@@ -47,6 +47,9 @@ COPY --from=builder /app/yarn.lock ./yarn.lock
 RUN apk --update --no-cache add git ffmpeg
 RUN yarn
 RUN apk del git
+
+# Aplicar a modificação no container final
+RUN sed -i 's/\(\s*to: jid,\)/\1\n                target: jid,\n                to: S_WHATSAPP_NET,/' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
 
 # Verificar o conteúdo do arquivo no container final
 RUN echo "Verificação final do arquivo no container final:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep "target: jid,"

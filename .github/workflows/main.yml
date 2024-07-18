@@ -55,6 +55,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Add specific Baileys version
+        run: yarn add @whiskeysockets/baileys@zennn08/Baileys#profile-picture-url
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:

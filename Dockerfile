@@ -14,7 +14,7 @@ ADD ./yarn.lock ./yarn.lock
 RUN yarn
 
 # Adicionar a modificação do arquivo chats.js após a instalação das dependências
-RUN sed -i '/const profilePictureUrl = async/,/return child?.attrs?.url/ { /attrs: {/,/}/ { /to: jid,/d; /target: jid,/! s/attrs: {/attrs: {\n                target: jid,\n                to: S_WHATSAPP_NET,/; } } }' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
+RUN sed -i '/const profilePictureUrl = async/,/return.*url;/ { s/to: jid,/target: jid,\n                to: S_WHATSAPP_NET,/; }' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
 
 # Verificar o conteúdo do arquivo após a modificação
 RUN echo "Depois da modificação no estágio builder:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep -A 10 "profilePictureUrl"
@@ -57,7 +57,7 @@ RUN yarn --production
 RUN apk del git
 
 # Aplicar a modificação no container final
-RUN sed -i '/const profilePictureUrl = async/,/return child?.attrs?.url/ { /attrs: {/,/}/ { /to: jid,/d; /target: jid,/! s/attrs: {/attrs: {\n                target: jid,\n                to: S_WHATSAPP_NET,/; } } }' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
+RUN sed -i '/const profilePictureUrl = async/,/return.*url;/ { s/to: jid,/target: jid,\n                to: S_WHATSAPP_NET,/; }' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
 
 # Verificar o conteúdo do arquivo no container final
 RUN echo "Verificação final do arquivo no container final:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep -A 10 "profilePictureUrl"

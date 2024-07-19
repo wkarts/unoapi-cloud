@@ -14,7 +14,7 @@ ADD ./yarn.lock ./yarn.lock
 RUN yarn
 
 # Instale a versão específica do pacote Baileys
-RUN yarn add @whiskeysockets/baileys@zennn08/Baileys#profile-picture-url
+#RUN yarn add @whiskeysockets/baileys@zennn08/Baileys#profile-picture-url
 
 # Adicionar a modificação do arquivo chats.js após a instalação das dependências
 # RUN sed -i '/const profilePictureUrl = async/,/return.*url;/ { s/to: jid,/target: jid,\n                to: S_WHATSAPP_NET,/; }' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
@@ -27,7 +27,7 @@ ADD ./src ./src
 ADD ./tsconfig.json ./tsconfig.json
 
 # Verificar se o Baileys foi instalado corretamente
-RUN ls -l node_modules/@whiskeysockets/baileys
+#RUN ls -l node_modules/@whiskeysockets/baileys
 
 # Construir o projeto
 RUN yarn build

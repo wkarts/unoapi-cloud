@@ -26,6 +26,9 @@ RUN yarn add @whiskeysockets/baileys@zennn08/Baileys#profile-picture-url
 ADD ./src ./src
 ADD ./tsconfig.json ./tsconfig.json
 
+# Verificar se o Baileys foi instalado corretamente
+RUN ls -l node_modules/@whiskeysockets/baileys
+
 # Construir o projeto
 RUN yarn build
 

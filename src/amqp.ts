@@ -218,7 +218,7 @@ export const amqpConsume = async (
   if (!channelObject) {
     throw `Not create channel for queue ${queue}`
   }
-const { channel, queueDead, queueDelayed, queueMain } = channelObject
+  const { channel, queueDead, queueDelayed, queueMain } = channelObject
   const fn = async (payload: ConsumeMessage | null) => {
     if (!payload) {
       throw `payload not be null `

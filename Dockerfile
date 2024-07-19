@@ -59,8 +59,10 @@ COPY --from=builder /app/yarn.lock ./yarn.lock
 
 # Instalar apenas as dependências de produção
 RUN apk --update --no-cache add git ffmpeg
-RUN yarn install --production
-RUN yarn add @whiskeysockets/baileys@zennn08/Baileys#profile-picture-url --production
+#RUN yarn install --production
+RUN yarn install
+#RUN yarn add @whiskeysockets/baileys@zennn08/Baileys#profile-picture-url --production
+RUN yarn add @whiskeysockets/baileys@zennn08/Baileys#profile-picture-url
 RUN apk del git
 
 # Aplicar a modificação no container final

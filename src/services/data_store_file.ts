@@ -10,7 +10,7 @@ import {
   MessageUpsertType,
   WAMessageUpdate,
   GroupMetadata,
-  isJidGroup
+  isJidGroup,
 } from '@whiskeysockets/baileys'
 import makeOrderedDictionary from '@whiskeysockets/baileys/lib/Store/make-ordered-dictionary'
 import { BaileysInMemoryStoreConfig, waMessageID } from '@whiskeysockets/baileys/lib/Store/make-in-memory-store'
@@ -143,12 +143,10 @@ const dataStoreFile = async (phone: string, config: Config): Promise<DataStore> 
   dataStore.setImageUrl = async (jid: string, url: string) => {
     images.set(jid, url)
   }
-
-  // Atualizar a função loadImageUrl para usar a nova implementação da API Baileys
   dataStore.loadImageUrl = async (jid: string, sock: WASocket) => {
     let url = await dataStore.getImageUrl(jid)
     if (!url) {
-      url = await sock.profilePictureUrl(jid) // Usar a função profilePictureUrl do socket "url = await sock.profilePictureUrl(jid, 'preview')"
+      url = await sock.profilePictureUrl(jid)
       if (url) {
         await dataStore.setImageUrl(jid, url)
       }

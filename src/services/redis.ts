@@ -14,26 +14,27 @@ import {
   NOTIFY_FAILED_MESSAGES,
   COMPOSING_MESSAGE,
   REJECT_CALLS,
-  SESSION_WEBHOOK,
-  REJECT_CALLS_WEBHOOK,
+  REJECT_CALLS_WEBHOOK, // Corrigido: Removido SESSION_WEBHOOK, se não existir em defaults.ts
   MESSAGE_CALLS_WEBHOOK,
   LOG_LEVEL,
   AUTO_CONNECT,
   AUTO_RESTART_MS,
-  RETRY_REQUEST_DELAY_MS,
+  UNOAPI_RETRY_REQUEST_DELAY_MS, // Corrigido: Usando o nome correto
   THROW_WEBHOOK_ERROR,
   BASE_STORE,
   IGNORE_DATA_STORE,
   SEND_REACTION_AS_REPLY,
   SEND_PROFILE_PICTURE,
-  AUTH_TOKEN,
-  AUTH_HEADER,
+  UNOAPI_AUTH_TOKEN, // Corrigido: Usando o nome correto
+  UNOAPI_HEADER_NAME, // Corrigido: Usando o nome correto
   WEBHOOK_URL_ABSOLUTE,
   WEBHOOK_TOKEN,
-  WEBHOOK_HEADER } from '../defaults'
+  WEBHOOK_HEADER 
+} from '../defaults'
 import logger from './logger'
 import { GroupMetadata } from '@whiskeysockets/baileys'
 import { Webhook, configs } from './config'
+
 
 export const BASE_KEY = 'unoapi-'
 
@@ -312,13 +313,12 @@ export const setConfig = async (phone: string, value: any) => {
     notifyFailedMessages: NOTIFY_FAILED_MESSAGES,
     composingMessage: COMPOSING_MESSAGE,
     rejectCalls: REJECT_CALLS,
-    sessionWebhook: SESSION_WEBHOOK,
     rejectCallsWebhook: REJECT_CALLS_WEBHOOK,
     messageCallsWebhook: MESSAGE_CALLS_WEBHOOK,
     logLevel: LOG_LEVEL,
     autoConnect: AUTO_CONNECT,
     autoRestartMs: AUTO_RESTART_MS,
-    retryRequestDelayMs: RETRY_REQUEST_DELAY_MS,
+    retryRequestDelayMs: UNOAPI_RETRY_REQUEST_DELAY_MS,
     throwWebhookError: THROW_WEBHOOK_ERROR,
     baseStore: BASE_STORE,
     webhooks: [
@@ -333,8 +333,8 @@ export const setConfig = async (phone: string, value: any) => {
     ignoreDataStore: IGNORE_DATA_STORE,
     sendReactionAsReply: SEND_REACTION_AS_REPLY,
     sendProfilePicture: SEND_PROFILE_PICTURE,
-    authToken: AUTH_TOKEN,
-    authHeader: AUTH_HEADER
+    authToken: UNOAPI_AUTH_TOKEN,
+    authHeader: UNOAPI_HEADER_NAME
   }
 
   // Garante que a lista de webhooks está presente tanto na configuração atual quanto na nova configuração

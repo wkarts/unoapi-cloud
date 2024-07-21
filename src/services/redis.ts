@@ -268,7 +268,7 @@ export const setConfig = async (phone: string, value: any) => {
   const key = configKey(phone)
   const currentWebhooks: Webhook[] = currentConfig && currentConfig.webhooks || []
   const newWebhooks: Webhook[] = value && value.webhooks || currentWebhooks
-  const updatedWebooks: Webhook[] = []
+  const updatedWebhooks: Webhook[] = []
   newWebhooks.forEach(n => {
     const c = currentWebhooks.find((c) => c.id === n.id)
     if (c) {

@@ -266,22 +266,26 @@ export const getConfig = async (phone: string) => {
 export const setConfig = async (phone: string, value: any) => {
   const currentConfig = await getConfig(phone)
   const key = configKey(phone)
+
   const currentWebhooks: Webhook[] = currentConfig && currentConfig.webhooks || []
   const newWebhooks: Webhook[] = value && value.webhooks || currentWebhooks
-  const updatedWebhooks: Webhook[] = []
-  newWebhooks.forEach(n => {
-    const c = currentWebhooks.find((c) => c.id === n.id)
-    if (c) {
-      const u: Webhook = { ...c, ...n }
-      updatedWebhooks.push(u)
-    }
+
+  const updatedWebhooks: Webhook[] = currentWebhooks.map((c) => {
+    const n = newWebhooks.find((n) => n.id === c.id)
+    return n ? { ...c, ...n } : c
   })
-  value.webhooks = updatedWebhooks
-  const config = { ...currentConfig, ...value }
+
+  const config = {
+    ...currentConfig,
+    ...value,
+    webhooks: updatedWebhooks
+  }
+
   await redisSetAndExpire(key, JSON.stringify(config), SESSION_TTL)
   configs.delete(phone)
   return config
 }
+
 
 export const delConfig = async (phone: string) => {
   const key = configKey(phone)

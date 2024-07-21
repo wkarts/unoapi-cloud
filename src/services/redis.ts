@@ -264,26 +264,41 @@ export const getConfig = async (phone: string) => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setConfig = async (phone: string, value: any) => {
+  logger.info(`Valor recebido para setConfig: ${JSON.stringify(value, null, 2)}`)
+
   const currentConfig = await getConfig(phone)
   const key = configKey(phone)
 
-  // Garantir que todas as propriedades sejam mescladas corretamente
-  const updatedConfig = {
+  // Garante que a lista de webhooks está presente tanto na configuração atual quanto na nova configuração
+  const currentWebhooks: Webhook[] = currentConfig && currentConfig.webhooks || []
+  const newWebhooks: Webhook[] = value && value.webhooks || []
+
+  // Atualiza a lista de webhooks, mesclando os novos webhooks com os existentes
+  const updatedWebhooks: Webhook[] = currentWebhooks.map((c) => {
+    const n = newWebhooks.find((n) => n.id === c.id)
+    return n ? { ...c, ...n } : c
+  })
+
+  // Adiciona novos webhooks que não estão na lista atual
+  newWebhooks.forEach((n) => {
+    if (!currentWebhooks.some((c) => c.id === n.id)) {
+      updatedWebhooks.push(n)
+    }
+  })
+
+  // Cria a configuração final, mesclando a configuração atual com a nova configuração
+  const config = {
     ...currentConfig,
     ...value,
-    webhooks: (currentConfig.webhooks || []).map((webhook: Webhook) => {
-      const newWebhook = value.webhooks.find((n: Webhook) => n.id === webhook.id)
-      return newWebhook ? { ...webhook, ...newWebhook } : webhook
-    }).concat(
-      value.webhooks.filter((newWebhook: Webhook) => 
-        !currentConfig.webhooks.some((webhook: Webhook) => webhook.id === newWebhook.id)
-      )
-    )
+    webhooks: updatedWebhooks.length > 0 ? updatedWebhooks : currentWebhooks
   }
 
-  await redisSetAndExpire(key, JSON.stringify(updatedConfig), SESSION_TTL)
+  logger.info(`Configuração final para setConfig: ${JSON.stringify(config, null, 2)}`)
+
+  // Armazena a configuração no Redis com o tempo de expiração definido
+  await redisSetAndExpire(key, JSON.stringify(config), SESSION_TTL)
   configs.delete(phone)
-  return updatedConfig
+  return config
 }
 
 export const delConfig = async (phone: string) => {

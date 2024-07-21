@@ -1,5 +1,36 @@
 import { createClient } from '@redis/client'
-import { REDIS_URL, DATA_JID_TTL, DATA_TTL, SESSION_TTL } from '../defaults'
+import { 
+  REDIS_URL, 
+  DATA_JID_TTL, 
+  DATA_TTL, 
+  SESSION_TTL,
+  IGNORE_GROUP_MESSAGES,
+  IGNORE_BROADCAST_STATUSES,
+  IGNORE_BROADCAST_MESSAGES,
+  IGNORE_HISTORY_MESSAGES,
+  IGNORE_OWN_MESSAGES,
+  IGNORE_YOURSELF_MESSAGES,
+  SEND_CONNECTION_STATUS,
+  NOTIFY_FAILED_MESSAGES,
+  COMPOSING_MESSAGE,
+  REJECT_CALLS,
+  SESSION_WEBHOOK,
+  REJECT_CALLS_WEBHOOK,
+  MESSAGE_CALLS_WEBHOOK,
+  LOG_LEVEL,
+  AUTO_CONNECT,
+  AUTO_RESTART_MS,
+  RETRY_REQUEST_DELAY_MS,
+  THROW_WEBHOOK_ERROR,
+  BASE_STORE,
+  IGNORE_DATA_STORE,
+  SEND_REACTION_AS_REPLY,
+  SEND_PROFILE_PICTURE,
+  AUTH_TOKEN,
+  AUTH_HEADER,
+  WEBHOOK_URL_ABSOLUTE,
+  WEBHOOK_TOKEN,
+  WEBHOOK_HEADER } from '../defaults'
 import logger from './logger'
 import { GroupMetadata } from '@whiskeysockets/baileys'
 import { Webhook, configs } from './config'
@@ -266,12 +297,49 @@ export const getConfig = async (phone: string) => {
 export const setConfig = async (phone: string, value: any) => {
   logger.info(`Valor recebido para setConfig: ${JSON.stringify(value, null, 2)}`)
 
-  const currentConfig = await getConfig(phone)
+  const currentConfig = await getConfig(phone) || {}
   const key = configKey(phone)
 
+  // Definir todas as propriedades obrigatórias a partir de defaults.ts
+  const defaultConfig = {
+    ignoreGroupMessages: IGNORE_GROUP_MESSAGES,
+    ignoreBroadcastStatuses: IGNORE_BROADCAST_STATUSES,
+    ignoreBroadcastMessages: IGNORE_BROADCAST_MESSAGES,
+    ignoreHistoryMessages: IGNORE_HISTORY_MESSAGES,
+    ignoreOwnMessages: IGNORE_OWN_MESSAGES,
+    ignoreYourselfMessages: IGNORE_YOURSELF_MESSAGES,
+    sendConnectionStatus: SEND_CONNECTION_STATUS,
+    notifyFailedMessages: NOTIFY_FAILED_MESSAGES,
+    composingMessage: COMPOSING_MESSAGE,
+    rejectCalls: REJECT_CALLS,
+    sessionWebhook: SESSION_WEBHOOK,
+    rejectCallsWebhook: REJECT_CALLS_WEBHOOK,
+    messageCallsWebhook: MESSAGE_CALLS_WEBHOOK,
+    logLevel: LOG_LEVEL,
+    autoConnect: AUTO_CONNECT,
+    autoRestartMs: AUTO_RESTART_MS,
+    retryRequestDelayMs: RETRY_REQUEST_DELAY_MS,
+    throwWebhookError: THROW_WEBHOOK_ERROR,
+    baseStore: BASE_STORE,
+    webhooks: [
+      {
+        sendNewMessages: null,
+        id: "default",
+        urlAbsolute: WEBHOOK_URL_ABSOLUTE,
+        token: WEBHOOK_TOKEN,
+        header: WEBHOOK_HEADER
+      }
+    ],
+    ignoreDataStore: IGNORE_DATA_STORE,
+    sendReactionAsReply: SEND_REACTION_AS_REPLY,
+    sendProfilePicture: SEND_PROFILE_PICTURE,
+    authToken: AUTH_TOKEN,
+    authHeader: AUTH_HEADER
+  }
+
   // Garante que a lista de webhooks está presente tanto na configuração atual quanto na nova configuração
-  const currentWebhooks: Webhook[] = currentConfig && currentConfig.webhooks || []
-  const newWebhooks: Webhook[] = value && value.webhooks || []
+  const currentWebhooks: Webhook[] = currentConfig.webhooks || []
+  const newWebhooks: Webhook[] = value.webhooks || []
 
   // Atualiza a lista de webhooks, mesclando os novos webhooks com os existentes
   const updatedWebhooks: Webhook[] = currentWebhooks.map((c) => {
@@ -286,8 +354,9 @@ export const setConfig = async (phone: string, value: any) => {
     }
   })
 
-  // Cria a configuração final, mesclando a configuração atual com a nova configuração
+  // Cria a configuração final, mesclando a configuração atual com a nova configuração e valores padrão
   const config = {
+    ...defaultConfig,
     ...currentConfig,
     ...value,
     webhooks: updatedWebhooks.length > 0 ? updatedWebhooks : currentWebhooks

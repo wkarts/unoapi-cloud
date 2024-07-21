@@ -296,16 +296,10 @@ export const setConfig = async (phone: string, value: any) => {
   logger.info(`Configuração final para setConfig: ${JSON.stringify(config, null, 2)}`)
 
   // Armazena a configuração no Redis com o tempo de expiração definido
- // await redisSetAndExpire(key, JSON.stringify(config), SESSION_TTL)
- // configs.delete(phone)
- // return config
-}
-
   await redisSetAndExpire(key, JSON.stringify(config), SESSION_TTL)
   configs.delete(phone)
   return config
 }
-
 
 export const delConfig = async (phone: string) => {
   const key = configKey(phone)

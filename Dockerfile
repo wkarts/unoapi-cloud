@@ -65,9 +65,9 @@ RUN yarn install --production
 RUN apk del git
 
 # Aplicar a modificação no container final
-#RUN sed -i '/const profilePictureUrl = async/,/return.*url;/ { s/to: jid,/target: jid,\n                to: S_WHATSAPP_NET,/; }' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
+RUN sed -i '/const profilePictureUrl = async/,/return.*url;/ { s/to: jid,/target: jid,\n                to: S_WHATSAPP_NET,/; }' node_modules/@whiskeysockets/baileys/lib/Socket/chats.js
 
 # Verificar o conteúdo do arquivo no container final
-#RUN echo "Verificação final do arquivo no container final:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep -A 10 "profilePictureUrl"
+RUN echo "Verificação final do arquivo no container final:" && cat node_modules/@whiskeysockets/baileys/lib/Socket/chats.js | grep -A 10 "profilePictureUrl"
 
 ENTRYPOINT ["yarn", "start"]

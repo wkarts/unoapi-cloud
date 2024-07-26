@@ -2,12 +2,12 @@ name: ci
 
 on:
   push:
-    branches:  [ main ]
+    branches:  [ wkarts-baileys ]
     tags:
       - 'v*.*.*'
 
   pull_request:
-    branches: [ main ]
+    branches: [ wkarts-baileys ]
 
 jobs:
   test:

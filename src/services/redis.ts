@@ -32,7 +32,7 @@ import {
   WEBHOOK_HEADER 
 } from '../defaults'
 import logger from './logger'
-import { GroupMetadata } from '@whiskeysockets/baileys'
+import { GroupMetadata } from '@wkarts/baileys'
 import { Webhook, configs } from './config'
 
 

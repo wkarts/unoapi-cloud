@@ -11,9 +11,9 @@ import {
   WAMessageUpdate,
   GroupMetadata,
   isJidGroup,
-} from '@whiskeysockets/baileys'
-import makeOrderedDictionary from '@whiskeysockets/baileys/lib/Store/make-ordered-dictionary'
-import { BaileysInMemoryStoreConfig, waMessageID } from '@whiskeysockets/baileys/lib/Store/make-in-memory-store'
+} from '@wkarts/baileys'
+import makeOrderedDictionary from '@wkarts/baileys/lib/Store/make-ordered-dictionary'
+import { BaileysInMemoryStoreConfig, waMessageID } from '@wkarts/baileys/lib/Store/make-in-memory-store'
 import { isSaveMedia, jidToPhoneNumber, phoneNumberToJid } from './transformer'
 import { existsSync, readFileSync, rmSync, writeFileSync, mkdirSync } from 'fs'
 import { DataStore } from './data_store'

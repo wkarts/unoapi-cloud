@@ -12,9 +12,9 @@ import makeWASocket, {
   GroupMetadata,
   Browsers,
   ConnectionState,
-} from '@whiskeysockets/baileys'
+} from '@wkarts/baileys'
 import { release } from 'os'
-import MAIN_LOGGER from '@whiskeysockets/baileys/lib/Utils/logger'
+import MAIN_LOGGER from '@wkarts/baileys/lib/Utils/logger'
 import { Config, defaultConfig } from './config'
 import { Store } from './store'
 import NodeCache from 'node-cache'

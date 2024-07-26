@@ -1,4 +1,4 @@
-import { proto, WAMessage, downloadMediaMessage } from '@whiskeysockets/baileys'
+import { proto, WAMessage, downloadMediaMessage } from '@wkarts/baileys'
 import { getBinMessage, getMessageType } from './transformer'
 import { writeFile } from 'fs/promises'
 import { existsSync, mkdirSync, rmSync } from 'fs'

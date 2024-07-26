@@ -1,7 +1,7 @@
 {
   "name": "unoapi-cloud",
   "version": "1.17.13",
-  "description": "Unoapi Cloud",
+  "description": "Unoapi Cloud Wkarts-Baileys",
   "exports": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [

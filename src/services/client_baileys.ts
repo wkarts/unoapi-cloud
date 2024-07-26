@@ -1,4 +1,4 @@
-import { GroupMetadata, WAMessage, delay, isJidGroup, jidNormalizedUser } from '@whiskeysockets/baileys'
+import { GroupMetadata, WAMessage, delay, isJidGroup, jidNormalizedUser } from '@wkarts/baileys'
 import { Incoming } from './incoming'
 import { Listener } from './listener'
 import { Store, stores } from './store'

@@ -1,4 +1,4 @@
-import { WAVersion } from "@whiskeysockets/baileys"
+import { WAVersion } from "@wkarts/baileys"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _undefined: any = undefined

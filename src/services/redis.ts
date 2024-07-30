@@ -278,7 +278,7 @@ export const setConfig = async (phone: string, value: any) => {
     }
   })
   value.webhooks = updatedWebooks
-  const config = { ...currentConfig, ...value }
+  const config = { ...configs, ...currentConfig, ...value }
   await redisSetAndExpire(key, JSON.stringify(config), SESSION_TTL)
   configs.delete(phone)
   return config

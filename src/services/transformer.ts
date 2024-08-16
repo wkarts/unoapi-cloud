@@ -230,7 +230,7 @@ export const toBaileysMessageContent = (payload: any): AnyMessageContent => {
         if (payload[type].caption) {
           response.caption = payload[type].caption
         }
-                response[type] = { url: link }
+        response[type] = { url: link }
         break
       }
 

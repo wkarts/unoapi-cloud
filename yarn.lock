@@ -2576,10 +2576,10 @@
     "@wasm-audio-decoders/common" "9.0.5"
     codec-parser "2.4.3"
 
-"@wkarts/baileys@^6.7.6":
-  version "6.7.6"
-  resolved "https://registry.yarnpkg.com/@wkarts/baileys/-/baileys-6.7.6.tgz#bc1d32dff493434a28b72826096b41a23b5d1cae"
-  integrity sha512-PSSR4czXSahF/+2bBu/QbRk6JXdM8C+y+7EBxec6A/4qXT0eBCK7aBZhaMP+PhMZmQvd3HeS+tD7RXW4g4HJDw==
+"@wkarts/baileys@^6.7.7":
+  version "6.7.7"
+  resolved "https://registry.yarnpkg.com/@wkarts/baileys/-/baileys-6.7.7.tgz#85068b99b87021dde109e08641740110f03169b0"
+  integrity sha512-9tNP47w9Uo5UJkUIPZ/Ay1flp4/niPZepw2pXT1Y0QrLSwiLyfQfCfDDXG16OWeQYPnHi6yoHstI5GGwLBqNgA==
   dependencies:
     "@adiwajshing/keyed-db" "^0.2.4"
     "@hapi/boom" "^9.1.3"

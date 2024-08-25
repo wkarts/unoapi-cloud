@@ -2142,9 +2142,9 @@
   integrity sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==
 
 "@thi.ng/bitstream@^2.2.12":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@thi.ng/bitstream/-/bitstream-2.3.0.tgz#8f55836e52b8d091aad3d34c73180d8a8845ddcf"
-  integrity sha512-t+YvYpQqhRhAqPZC/6SLIaXVBAKPwLGrK2xYou/aEz/77Y0ng16FAhcajoOR98ISEeISd1E5CyOeeK3oMFCGsA==
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@thi.ng/bitstream/-/bitstream-2.4.0.tgz#e2065e12b58536b9e7c33d2565874dfda2718ede"
+  integrity sha512-0wQLNydySw4nOe+yGdJA1SmztWnDlf2WimuJWQpeh5+K3L/snxJx+rfvgjbfq/rkMiHhmvD/VywHLwI0vYWMLQ==
   dependencies:
     "@thi.ng/errors" "^2.5.15"
 
@@ -2576,10 +2576,10 @@
     "@wasm-audio-decoders/common" "9.0.5"
     codec-parser "2.4.3"
 
-"@wkarts/baileys@^6.7.9":
-  version "6.7.9"
-  resolved "https://registry.yarnpkg.com/@wkarts/baileys/-/baileys-6.7.9.tgz#ef1da9858b326f57db930e8a530526761e023281"
-  integrity sha512-bDMsoz+n8WU8/rM3ei0oopcJpHrb0zWhJRRk8fTgacCdqX9G8aWbd8oMwKFxfqPKGOS+PmEMb38ohZg2GfvMZQ==
+"@wkarts/baileys@^6.7.10":
+  version "6.7.10"
+  resolved "https://registry.yarnpkg.com/@wkarts/baileys/-/baileys-6.7.10.tgz#4e91675b20bc27f9f952e8b746cfa0af7e505ab9"
+  integrity sha512-MfEvqW7RS19eLptL29Y2dHGx3SFrg5H2sXWjMBiIGaEZy3rZPSWW5xZAWsg3jdWWUXC3nKEDSyrUvGaPAIQx/g==
   dependencies:
     "@adiwajshing/keyed-db" "^0.2.4"
     "@hapi/boom" "^9.1.3"
@@ -2805,9 +2805,9 @@ awesome-phonenumber@^6.8.0:
   integrity sha512-S9z1HKC6YQSxYL6ebn5dckJ4uPWIjmf6Ar64B5bfRQ7whJ323zewKryP4D1sLnxnzoRhRmV2v+2tty4/ONVi/Q==
 
 axios@^1.6.0:
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.4.tgz#4c8ded1b43683c8dd362973c393f3ede24052aa2"
-  integrity sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.5.tgz#21eed340eb5daf47d29b6e002424b3e88c8c54b1"
+  integrity sha512-fZu86yCo+svH3uqJ/yTdQ0QHpQu5oL+/QE+QPSv6BZSkDAoky9vytxp7u5qk83OJFS3kEBcesWni9WTZAv3tSw==
   dependencies:
     follow-redirects "^1.15.6"
     form-data "^4.0.0"
@@ -5998,9 +5998,9 @@ safe-buffer@~5.1.2:
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
 
 safe-stable-stringify@^2.1.0:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/safe-stable-stringify/-/safe-stable-stringify-2.4.3.tgz#138c84b6f6edb3db5f8ef3ef7115b8f55ccbf886"
-  integrity sha512-e2bDA2WJT0wxseVd4lsDP4+3ONX6HpMXQa1ZhFQ7SU+GjvORCmShbCMltrtIDfkYhVHrOcPtj+KhmDBdPdZD1g==
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/safe-stable-stringify/-/safe-stable-stringify-2.5.0.tgz#4ca2f8e385f2831c432a719b108a3bf7af42a1dd"
+  integrity sha512-b3rppTKm9T+PsVCBEOUR46GWI7fdOs00VKZ1+9c1EWDaDMvjQc6tUwuFyIprgGgTcWoVHSKrU8H31ZHA2e0RHA==
 
 "safer-buffer@>= 2.1.2 < 3":
   version "2.1.2"

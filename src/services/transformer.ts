@@ -4,8 +4,19 @@ import { parsePhoneNumber } from 'awesome-phonenumber'
 import vCard from 'vcf'
 import logger from './logger'
 import { Config } from './config'
+import { MESSAGE_CHECK_WAAPP } from '../defaults'
 
-export const TYPE_MESSAGES_TO_PROCESS_FILE = ['imageMessage', 'videoMessage', 'audioMessage', 'documentMessage', 'stickerMessage']
+export const TYPE_MESSAGES_TO_PROCESS_FILE = ['imageMessage', 'videoMessage', 'audioMessage', 'documentMessage', 'stickerMessage', 'ptvMessage']
+
+
+const MESSAGE_STUB_TYPE_ERRORS = [
+  'Message absent from node'.toLowerCase(),
+  'Invalid PreKey ID'.toLowerCase(),
+  'Key used already or never filled'.toLowerCase(),
+  'No SenderKeyRecord found for decryption'.toLowerCase(),
+  'No session record'.toLowerCase(),
+  'No matching sessions found for message'.toLowerCase(),
+]
 
 export class BindTemplateError extends Error {
   constructor() {
@@ -32,6 +43,7 @@ const TYPE_MESSAGES_TO_PROCESS = [
   'ephemeralMessage',
   'documentWithCaptionMessage',
   'viewOnceMessageV2',
+  'viewOnceMessageV2Extension',
   'imageMessage',
   'videoMessage',
   'audioMessage',
@@ -45,11 +57,52 @@ const TYPE_MESSAGES_TO_PROCESS = [
   'liveLocationMessage',
   'listResponseMessage',
   'conversation',
+  'ptvMessage',
   'protocolMessage',
   'senderKeyDistributionMessage',
   'messageContextInfo',
   'messageStubType',
 ]
+
+export const getMimetype = (payload: any) => {
+  const { type } = payload
+  const link = payload[type].link
+
+  let mimetype: string | boolean = mime.lookup(link.split('?')[0])
+  if (!mimetype) {
+    let url
+    try {
+      url = new URL(link)
+    } catch (error) {
+      logger.error(`Error on parse url: ${link}`)
+    }
+    if (url) {
+      mimetype = url.searchParams.get('response-content-type')
+      if (!mimetype) {
+        const contentDisposition = url.searchParams.get('response-content-disposition')
+        if (contentDisposition) {
+          const filename = contentDisposition.split('filename=')[1].split(';')[0]
+          if (filename) {
+            mimetype = mime.lookup(filename)
+          }
+        }
+      }
+    }
+  }
+  if (type == 'audio') {
+    if (mimetype == 'audio/ogg') {
+      mimetype = 'audio/ogg; codecs=opus'
+    } else if (!mimetype) {
+      mimetype = 'audio/mpeg'
+    }
+  }
+  if (payload[type].filename) {
+    if (!mimetype) {
+      mimetype = mime.lookup(payload[type].filename)
+    }
+  }
+  return mimetype ? `${mimetype}` : 'application/unknown'
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getMessageType = (payload: any) => {
@@ -189,33 +242,8 @@ export const toBaileysMessageContent = (payload: any): AnyMessageContent => {
     case 'video':
       const link = payload[type].link
       if (link) {
-        let mimetype: string | boolean | null = mime.lookup(link.split('?')[0])
-        if (!mimetype) {
-          let url
-          try {
-            url = new URL(link)
-          } catch (error) {
-            logger.error(`Error on parse url: ${link}`)
-          }
-          if (url) {
-            mimetype = url.searchParams.get('response-content-type')
-            if (!mimetype) {
-              const contentDisposition = url.searchParams.get('response-content-disposition')
-              if (contentDisposition) {
-                const filename = contentDisposition.split('filename=')[1].split(';')[0]
-                if (filename) {
-                  mimetype = mime.lookup(filename)
-                }
-              }
-            }
-          }
-        }
+        let mimetype: string = getMimetype(payload)
         if (type == 'audio') {
-          if (mimetype == 'audio/ogg') {
-            mimetype = 'audio/ogg; codecs=opus'
-          } else if (!mimetype) {
-            mimetype = 'audio/mpeg'
-          }
           response.ptt = true
         }
         if (payload[type].filename) {
@@ -419,11 +447,15 @@ export const fromBaileysMessageContent = (phone: string, payload: any, config?: 
       case 'audioMessage':
       case 'stickerMessage':
       case 'documentMessage':
-        const mediaType = messageType.replace('Message', '')
+      case 'ptvMessage':
+        let mediaType = messageType.replace('Message', '')
         const mediaKey = `${phone}/${whatsappMessageId}`
         const mimetype = (binMessage.fileName && mime.lookup(binMessage.fileName)) || binMessage.mimetype.split(';')[0]
         const extension = mime.extension(mimetype)
         const filename = binMessage.fileName || `${payload.key.id}.${extension}`
+        if (mediaType == 'pvt') {
+          mediaType = mimetype.split('/')[0]
+        }
         message[mediaType] = {
           caption: binMessage.caption,
           filename,
@@ -477,6 +509,8 @@ export const fromBaileysMessageContent = (phone: string, payload: any, config?: 
       case 'viewOnceMessageV2':
       // {"key":{"remoteJid":"554891710539@s.whatsapp.net","fromMe":false,"id":"3EB016D7881A2C29E25378"},"messageTimestamp":1704301811,"pushName":"Rodrigo","broadcast":false,"message":{"messageContextInfo":{"deviceListMetadata":{"senderKeyHash":"n3DiVMM5RFh8Cg==","senderTimestamp":"1703800265","recipientKeyHash":"5IqwqCOTqgXgCA==","recipientTimestamp":"1704205568"},"deviceListMetadataVersion":2},"documentWithCaptionMessage":{"message":{"documentMessage":{"url":"https://mmg.whatsapp.net/v/t62.7119-24/24248058_881769707068106_5138895532383847851_n.enc?ccb=11-4&oh=01_AdQM6YlfR3dW_UvRoLmPQeqOl08pdn8DNtTCTP1DMz4gcA&oe=65BCEDEA&_nc_sid=5e03e0&mms3=true","mimetype":"text/csv","title":"Clientes-03-01-2024-11-38-32.csv","fileSha256":"dmBD4FB1aoDA9fnIRXbvqgExKmxqK6qjGFIGETMmH4Y=","fileLength":"266154","mediaKey":"Mmu+1SthUQuVn8JM+W1Uwttkb3Vo/VQlSJQd/ddNixU=","fileName":"Clientes-03-01-2024-11-38-32.csv","fileEncSha256":"+EadJ+TTn43nOvcccdXAdHSYt9KQy+R7lcsmwkotQnY=","directPath":"/v/t62.7119-24/24248058_881769707068106_5138895532383847851_n.enc?ccb=11-4&oh=01_AdQM6YlfR3dW_UvRoLmPQeqOl08pdn8DNtTCTP1DMz4gcA&oe=65BCEDEA&_nc_sid=5e03e0","mediaKeyTimestamp":"1704301417","contactVcard":false,"contextInfo":{"ephemeralSettingTimestamp":"1702988379","disappearingMode":{"initiator":"CHANGED_IN_CHAT"}},"caption":"pode subir essa campanha por favor"}}}}}
       case 'documentWithCaptionMessage':
+      // {"key":{"remoteJid":"554988290955@s.whatsapp.net","fromMe":false,"id":"3A3BD07D3529A482876A"},"messageTimestamp":1726448401,"pushName":"Clairton Rodrigo Heinzen","broadcast":false,"message":{"messageContextInfo":{"deviceListMetadata":{"senderKeyHash":"FxWbzja6L9qr6A==","senderTimestamp":"1725477022","recipientKeyHash":"HDhq+OTRdd9hhg==","recipientTimestamp":"1725986929"},"deviceListMetadataVersion":2},"viewOnceMessageV2Extension":{"message":{"audioMessage":{"url":"https://mmg.whatsapp.net/v/t62.7117-24/26550443_409309922183140_5545513783776136395_n.enc?ccb=11-4&oh=01_Q5AaIFdNmgUqP86I5VM6WLnt4i1h6wxOoPGY2kvj7wQlhE4c&oe=670EF9DE&_nc_sid=5e03e0&mms3=true","mimetype":"audio/ogg; codecs=opus","fileSha256":"kIFwwAF/PlmPp/Lxy2lVKgt8aq+fzSe+XmRwT5/Cn5A=","fileLength":"11339","seconds":8,"ptt":true,"mediaKey":"MEOnPR/10pkdQhNjjoB1yJXOZ/x9XAJk0m1XI1g7tdM=","fileEncSha256":"ZS1J1Zkjd93jz8TVg9rlNSotMCVbbZyBR/lOIwQhkSI=","directPath":"/v/t62.7117-24/26550443_409309922183140_5545513783776136395_n.enc?ccb=11-4&oh=01_Q5AaIFdNmgUqP86I5VM6WLnt4i1h6wxOoPGY2kvj7wQlhE4c&oe=670EF9DE&_nc_sid=5e03e0","mediaKeyTimestamp":"1726448391","streamingSidecar":"hRM//de8KSrVng==","waveform":"AAYEAgEBAQMGFxscHBQkJBscIyMcHBUPCQQCAQEAAAEPIRwkHhgXGBQJBAIBAAAAAAAAAAAAAAAAAAAAAAAAAA==","viewOnce":true}}}}}
+      case 'viewOnceMessageV2Extension':
         const changedPayload = {
           ...payload,
           message: binMessage.message,
@@ -537,16 +571,13 @@ export const fromBaileysMessageContent = (phone: string, payload: any, config?: 
         break
 
       case 'messageStubType':
-        const errors = [
-          'Message absent from node',
-          'Invalid PreKey ID',
-          'Key used already or never filled',
-          'No SenderKeyRecord found for decryption',
-          'No session record',
-        ]
-        if (payload.messageStubType == 2 && payload.messageStubParameters && errors.includes(payload.messageStubParameters[0])) {
+        MESSAGE_STUB_TYPE_ERRORS
+        if (payload.messageStubType == 2 && 
+            payload.messageStubParameters &&
+            payload.messageStubParameters[0] &&
+            MESSAGE_STUB_TYPE_ERRORS.includes(payload.messageStubParameters[0].toLowerCase())) {
           message.text = {
-            body: '🕒 Não foi possível ler a mensagem. Peça para enviar novamente ou abra o Whatsapp no celular.',
+            body: MESSAGE_CHECK_WAAPP,
           }
           message.type = 'text'
           change.value.messages.push(message)

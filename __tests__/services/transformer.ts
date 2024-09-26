@@ -34,11 +34,15 @@ const inputDocumentMessage: WAMessage = {
 
 describe('service transformer', () => {
   test('phoneNumberToJid with nine digit', async () => {
-    expect(phoneNumberToJid('+5549988290955')).toEqual('5549988290955@s.whatsapp.net')
+    expect(phoneNumberToJid('+5575988449231')).toEqual('5575988449231@s.whatsapp.net')
   })
 
   test('phoneNumberToJid', async () => {
-    expect(phoneNumberToJid('+554988290955')).toEqual('5549988290955@s.whatsapp.net')
+    expect(phoneNumberToJid('+557588449231')).toEqual('5575988449231@s.whatsapp.net')
+  })
+
+  test('phoneNumberToJid with 13 length', async () => {
+    expect(phoneNumberToJid('+5549800000000')).toEqual('5549800000000@s.whatsapp.net')
   })
 
   test('phoneNumberToJid with 13 length', async () => {
@@ -69,7 +73,7 @@ describe('service transformer', () => {
   test('getMessageType with status 3 and fromMe false', async () => {
     const input = {
       key: {
-        remoteJid: '554988290955@s.whatsapp.net',
+        remoteJid: '557588449231@s.whatsapp.net',
         fromMe: false,
         id: '3AB4BB2F72F2D4692924',
       },
@@ -84,7 +88,7 @@ describe('service transformer', () => {
   test('getMessageType with status 2 and fromMe false', async () => {
     const input = {
       key: {
-        remoteJid: '554988290955@s.whatsapp.net',
+        remoteJid: '557588449231@s.whatsapp.net',
         fromMe: false,
         id: '3AB4BB2F72F2D4692924',
       },
@@ -134,12 +138,12 @@ describe('service transformer', () => {
   })
 
   test('jidToPhoneNumber without + and put 9˚ digit', async () => {
-    expect(jidToPhoneNumber('+554988290955@s.whatsapp.net', '')).toEqual('5549988290955')
+    expect(jidToPhoneNumber('+557588449231@s.whatsapp.net', '')).toEqual('5575988449231')
   })
 
   test('fromBaileysMessageContent with messageContextInfo', async () => {
     const phoneNumer = '5549998360838'
-    const remotePhoneNumer = '554988290955'
+    const remotePhoneNumer = '557588449231'
     const remoteJid = `${remotePhoneNumer}@s.whatsapp.net`
     const body = `${new Date().getTime()}`
     const id = `wa.${new Date().getTime()}`
@@ -172,14 +176,14 @@ describe('service transformer', () => {
                 metadata: { display_phone_number: phoneNumer, phone_number_id: phoneNumer },
                 messages: [
                   {
-                    from: '5549988290955',
+                    from: '5575988449231',
                     id,
                     timestamp: messageTimestamp,
                     text: { body },
                     type: 'text',
                   },
                 ],
-                contacts: [{ profile: { name: pushName }, wa_id: '5549988290955' }],
+                contacts: [{ profile: { name: pushName }, wa_id: '5575988449231' }],
                 statuses: [],
                 errors: [],
               },
@@ -194,7 +198,7 @@ describe('service transformer', () => {
 
   test('fromBaileysMessageContent with text', async () => {
     const phoneNumer = '5549998360838'
-    const remotePhoneNumer = '554988290955'
+    const remotePhoneNumer = '557588449231'
     const remoteJid = `${remotePhoneNumer}@s.whatsapp.net`
     const body = `${new Date().getTime()}`
     const id = `wa.${new Date().getTime()}`
@@ -224,14 +228,14 @@ describe('service transformer', () => {
                 metadata: { display_phone_number: phoneNumer, phone_number_id: phoneNumer },
                 messages: [
                   {
-                    from: '5549988290955',
+                    from: '5575988449231',
                     id,
                     timestamp: messageTimestamp,
                     text: { body },
                     type: 'text',
                   },
                 ],
-                contacts: [{ profile: { name: pushName }, wa_id: '5549988290955' }],
+                contacts: [{ profile: { name: pushName }, wa_id: '5575988449231' }],
                 statuses: [],
                 errors: [],
               },
@@ -246,7 +250,7 @@ describe('service transformer', () => {
 
   test('fromBaileysMessageContent with quoted', async () => {
     const phoneNumer = '5549998360838'
-    const remotePhoneNumer = '554988290955'
+    const remotePhoneNumer = '557588449231'
     const remoteJid = `${remotePhoneNumer}@s.whatsapp.net`
     const body = `${new Date().getTime()}`
     const id = `wa.${new Date().getTime()}`
@@ -286,14 +290,14 @@ describe('service transformer', () => {
                       message_id: stanzaId,
                       id: stanzaId,
                     },
-                    from: '5549988290955', // with 9 digit
+                    from: '5575988449231', // with 9 digit
                     id,
                     timestamp: messageTimestamp,
                     text: { body },
                     type: 'text',
                   },
                 ],
-                contacts: [{ profile: { name: pushName }, wa_id: '5549988290955' }],
+                contacts: [{ profile: { name: pushName }, wa_id: '5575988449231' }],
                 statuses: [],
                 errors: [],
               },
@@ -828,7 +832,7 @@ describe('service transformer', () => {
   test('getMessageType with viewOnceMessage', async () => {
     const input = {
       key: {
-        remoteJid: '554988290955@s.whatsapp.net',
+        remoteJid: '557588449231@s.whatsapp.net',
         fromMe: true,
         id: '3AB1588C3CED95961092',
         participant: undefined,
@@ -966,15 +970,15 @@ describe('service transformer', () => {
   })
 
   test('isValidPhoneNumber return false when 8 digits phone brazilian', async () => {
-    expect(isValidPhoneNumber('554988290955')).toEqual(false)
+    expect(isValidPhoneNumber('557588449231')).toEqual(false)
   })
 
   test('isValidPhoneNumber return true when 9 digits phone brazilian', async () => {
-    expect(isValidPhoneNumber('5549988290955')).toEqual(true)
+    expect(isValidPhoneNumber('5575988449231')).toEqual(true)
   })
 
   test('isValidPhoneNumber return false when + without 9 digit', async () => {
-    expect(isValidPhoneNumber('+554988290955')).toEqual(false)
+    expect(isValidPhoneNumber('+557588449231')).toEqual(false)
   })
 
   test('isValidPhoneNumber return true when + fixed line brazilian', async () => {

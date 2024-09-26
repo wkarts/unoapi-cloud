@@ -1,9 +1,8 @@
 <div align="center">
-
-[![Whatsapp Group](https://img.shields.io/badge/Group-WhatsApp-%2322BC18)](https://chat.whatsapp.com/FZd0JyPVMLq94FHf59I8HU)
+<!--[![Whatsapp Group](https://img.shields.io/badge/Group-WhatsApp-%2322BC18)](https://chat.whatsapp.com/CRBaGd850uB1QigKRcguJU)-->
 [![License](https://img.shields.io/badge/license-GPL--3.0-orange)](./LICENSE)
-[![Support](https://img.shields.io/badge/Donation-picpay-green)](https://app.picpay.com/user/clairton.rodrigo)
-[![Support](https://img.shields.io/badge/Buy%20me-coffe-orange)](https://www.buymeacoffee.com/clairton)
+<!--[![Support](https://img.shields.io/badge/Donation-picpay-green)](https://app.picpay.com/user/wallace.kleiton)-->
+<!--[![Support](https://img.shields.io/badge/Buy%20me-coffe-orange)](https://www.buymeacoffee.com/clairton)-->
 
 </div>
 <h1 align="center">Unoapi Cloud</h1>
@@ -196,7 +195,7 @@ version: '3'
 
 services:
   app:
-    image: clairton/unoapi-cloud:latest
+    image: wkarts/unoapi-cloud:latest
     volumes:
       - ./data:/home/u/app/data
     ports:
@@ -455,7 +454,7 @@ Install nodejs 21 as https://nodejs.org/en/download/package-manager and Git
 
 `mkdir /opt/unoapi && cd /opt/unoapi`
 
-`git clone git@github.com:clairton/unoapi-cloud.git .`
+`git clone git@github.com:wkarts/unoapi-cloud.git .`
 
 `npm install`
 
@@ -539,25 +538,26 @@ using this software. WhatsApp does not allow bots using unofficial methods on
 their platform, so this shouldn't be considered totally safe.
 
 Released under the GPLv3 License.
-
+<!--
 ## WhatsApp Group
 
-https://chat.whatsapp.com/FZd0JyPVMLq94FHf59I8HU
+##https://chat.whatsapp.com/FZd0JyPVMLq94FHf59I8HU
 
 ## Need More
 
 Mail to comercial@unoapi.cloud
-
+-->
+<!--
 ## Donate to the project.
 
-#### Pix: 0e42d192-f4d6-4672-810b-41d69eba336e
+#### Pix: 2a6d51ce-fa6f-498c-9cc4-befc2dc99778
 
 </br>
 
 #### PicPay
 
 <div align="center">
-  <a href="https://app.picpay.com/user/clairton.rodrigo" target="_blank" rel="noopener noreferrer">
+  <a href="https://app.picpay.com/user/wallace.kleiton" target="_blank" rel="noopener noreferrer">
     <img src="./picpay.png" style="width: 50% !important;">
   </a>
 </div>
@@ -566,10 +566,11 @@ Mail to comercial@unoapi.cloud
 
 ### Buy Me A Coffee
 
-<div align="center">
-  <a href="https://www.buymeacoffee.com/clairton" target="_blank" rel="noopener noreferrer">
-    <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" style="width: 50% !important;">
-  </a>
-</div>
+##<div align="center">
+##  <a href="https://www.buymeacoffee.com/clairton" target="_blank" rel="noopener noreferrer">
+##    <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" style="width: 50% !important;">
+##  </a>
+##</div>
 
 </br>
+-->

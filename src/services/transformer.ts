@@ -247,6 +247,9 @@ export const toBaileysMessageContent = (payload: any): AnyMessageContent => {
           response.ptt = true
         }
         if (payload[type].filename) {
+          if (!mimetype) {
+            mimetype = mime.lookup(payload[type].filename)
+          }
           response.fileName = payload[type].filename
         }
         if (mimetype) {

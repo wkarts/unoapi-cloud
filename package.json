@@ -7,8 +7,8 @@
   "files": [
     "./dist"
   ],
-  "repository": "github.com/clairton/unoapi-cloud",
-  "author": "Clairton Rodrigo Heinzen<clairton.rodrigo@gmail.com>",
+  "repository": "github.com/wkarts/unoapi-cloud",
+  "author": "Wallace Kleiton<wkarts@gmail.com>",
   "license": "GPL-3.0",
   "private": false,
   "scripts": {
